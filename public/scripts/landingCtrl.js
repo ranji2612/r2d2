@@ -17,9 +17,8 @@ app.controller('landingCtrl', function($scope,$http,$routeParams) {
     lastTimeout = setTimeout(function() {
       var x = data.position.x - initialPosition.x,
           y =  - (data.position.y - initialPosition.y);
-      console.log('x = ', x);
-      console.log('y = ', y);
-      $http.post('/api/robot/drive', {'x': x, 'y': y})
+      console.log('x = ', x, 'y = ', y);
+      $http.post('/api/robot/drive', {'x': x/200, 'y': y/200})
       .success(function(data){
         console.log('success', data);
       })
