@@ -4,8 +4,8 @@ import time
 STOP_VELOCITY = 0
 STRAIGHT_RADIUS = 32767
 
-ROTATION_VELOCITY = 500
-UNIT_ROTATION_TIME = 3.3/360.0
+ROTATION_VELOCITY = 100
+UNIT_ROTATION_TIME = 6.60/360.0
 
 bot = create2api.Create2()
 
@@ -14,9 +14,12 @@ bot.start()
 bot.safe()
 
 def rotate(angle):
-    timeToRotate = angle * UNIT_ROTATION_TIME
+    timeToRotate = abs(angle * UNIT_ROTATION_TIME)
 
-    bot.drive(ROTATION_VELOCITY, -1)
+    if angle >= 0:
+        bot.drive(ROTATION_VELOCITY, -1)
+    else:
+        bot.drive(ROTATION_VELOCITY, 1)
 
     print timeToRotate
 
