@@ -16,7 +16,7 @@ Read about it online.
 #from create2api import Create2
 import time
 import os
-from flask import Flask, request, render_template, g, session,redirect, Response
+from flask import Flask, request, render_template, g, session,redirect, Response, send_from_directory
 from navigator import Navigator
 import sys
 
@@ -79,15 +79,14 @@ def teardown_request(exception):
 # see for routing: http://flask.pocoo.org/docs/0.10/quickstart/#routing
 # see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
 #
+@app.route('/<path:path>')
+def send_js(path):
+    return send_from_directory('public', path)
 
 @app.route('/')
 def index():
     return render_template("index.html");
     #return app.send_static_file('index.html')
-
-@app.route('/work/')
-def work():
-    return 'Hello!'
 
 @app.route('/basic/')
 def basic():
