@@ -5,11 +5,12 @@
   "main": "server.js",
   "author": "Devwrat, Somdeep, Siri, Ranji",
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "chalk": "^1.1.3",
     "create-oi": "0.0.6",
     "create2": "^1.2.3",
     "express": "~4.0.0",
     "multer": "^1.1.0",
-    "body-parser": "^1.14.1",
     "ssh2": "^0.4.12"
   }
 }
