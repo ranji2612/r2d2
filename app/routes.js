@@ -4,6 +4,6 @@ module.exports = function(app) {
 
   // Public
   app.get('/*', function(req, res){
-    res.json({'status':200});
+    res.sendfile('public/index.html');
   });
 };
