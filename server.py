@@ -18,7 +18,7 @@ import time
 import json
 from threading import Thread
 import os
-from flask import Flask, request, render_template, g, session,redirect, Response, send_from_directory
+from flask import Flask, request, render_template, g, session,redirect, Response, send_from_directory, jsonify
 from navigator import Navigator
 # from __future__ import print_function
 import sys
@@ -30,7 +30,7 @@ app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 # Bot object
 bot = Navigator.Navigator()
-
+trajectoryList = []
 
 @app.before_request
 def before_request():
@@ -136,10 +136,13 @@ def drive():
     content = request.get_json(silent=False)
     x = content["x"]
     y = content["y"]
-    bot.drive(float(x),float(y));
+    trajectoryList.append(bot.drive(float(x),float(y)))
     print float(x),float(y)
-    return x
+    return "Success"
 
+@app.route('/api/robot/map')
+def getPath():
+    return jsonify(result=trajectoryList)  
 
 if __name__ == "__main__":
   import click

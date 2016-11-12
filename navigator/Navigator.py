@@ -8,6 +8,7 @@ UNIT_ROTATION_TIME = 6.60/360
 ROTATION_VELOCITY = 100
 STOP_VELOCITY = 0
 STRAIGHT_RADIUS = 32767
+trajectoryList=[]
 
 class Navigator(object):
     def __init__(self):
@@ -58,6 +59,8 @@ class Navigator(object):
 
         self.bot.drive_straight(velocity)
         self.velocity = velocity
+        timestamp = int(time.time())
+        return (timestamp,velocity,angle)
 
     def readSensorsData(self):
         self.bot.get_packet(100)
