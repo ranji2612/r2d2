@@ -5,8 +5,8 @@ import json
 from threading import Thread
 import random
 
-#nav = Navigator.Navigator()
-#nav.startSafe()
+nav = Navigator.Navigator()
+nav.startSafe()
 
 def getFakeSensorData():
     sensorData = {}
@@ -16,8 +16,8 @@ def getFakeSensorData():
 
 def readSensors(param):
     while True:
-        #sensorData = nav.readSensorsData()
-        sensorData = getFakeSensorData()
+        sensorData = nav.readSensorsData()
+        #sensorData = getFakeSensorData()
         print json.dumps(sensorData, indent=4, sort_keys=False)
         time.sleep(1)
 
