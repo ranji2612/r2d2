@@ -18,11 +18,13 @@ import time
 import os
 from flask import Flask, request, render_template, g, session,redirect, Response, send_from_directory
 from navigator import Navigator
+# from __future__ import print_function
 import sys
 
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public')
 app = Flask(__name__, template_folder=tmpl_dir, static_url_path='/public')
+bot = 0
 
 # DATABASEURI = "postgresql://np2544:intro2db@w4111vm.eastus.cloudapp.azure.com:5432/w4111"
 # engine = create_engine(DATABASEURI)
@@ -96,6 +98,30 @@ def basic():
     time.sleep(5);
     bot.destroy()
     return 'wow'
+
+
+# TRY WITH SLASH AT END OF ROUTE
+@app.route('/api/robot/start')
+def start():
+    bot = Navigator.Navigator();
+    bot.startSafe();
+    return "Success"
+
+@app.route('/api/robot/stop')
+def stop():
+    bot.stop();
+
+@app.route('/api/robot/drive', methods=['POST'])
+def drive():
+    # bot.startSafe();
+    content = request.get_json(silent=False)
+    x = content["x"]
+    y = content["y"]
+    bot.drive(x,y);
+    
+
+    
+    
 
 # @app.route('/another')
 # def another():
@@ -457,7 +483,7 @@ if __name__ == "__main__":
     HOST, PORT = host, port
     print "running on %s:%d" % (HOST, PORT)
     sys.path.append('/Users/Siri/Documents/ms/Fall2016/yhack/r2d2/navigator')
-    app.run(host=HOST, port=PORT, debug=debug, threaded=threaded)
+    app.run(host=HOST, port=PORT, debug=True, threaded=threaded)
 
 
   run()
