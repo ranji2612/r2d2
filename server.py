@@ -15,6 +15,8 @@ Read about it online.
 """
 #from create2api import Create2
 import time
+import json
+from threading import Thread
 import os
 from flask import Flask, request, render_template, g, session,redirect, Response, send_from_directory
 from navigator import Navigator
@@ -27,7 +29,7 @@ app = Flask(__name__, template_folder=tmpl_dir, static_url_path='/public')
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 # Bot object
-# bot = Navigator.Navigator()
+bot = Navigator.Navigator()
 
 
 @app.before_request
@@ -89,13 +91,30 @@ def basic():
     bot.destroy()
     return 'wow'
 
+def getFakeSensorData():
+    sensorData = {}
+    sensorData['angle'] = random.randint(0, 360)
+    sensorData['distance'] = random.randint(0, 100)
+    return sensorData
+
+def readSensors(param):
+    while True:
+        sensorData = bot.readSensorsData()
+        #sensorData = getFakeSensorData()
+        f = open("values.txt","a")
+        f.write(json.dumps(sensorData, indent=4, sort_keys=False))
+        #print json.dumps(sensorData, indent=4, sort_keys=False)
+        time.sleep(1)
 
 # TRY WITH SLASH AT END OF ROUTE
-@app.route('/api/robot/start')
+@app.route('/api/robot/start/')
 def start1():
     #bot = Navigator.Navigator();
     bot.startSafe();
-    #bot.reset();
+    thread = Thread(target=readSensors, args=('someParam', ))
+    thread.start()
+    thread.join()
+#    #bot.reset();
     return "Success"
 
 @app.route('/api/robot/reset')
@@ -135,6 +154,6 @@ if __name__ == "__main__":
     print "running on %s:%d" % (HOST, PORT)
     sys.path.append('/Users/Siri/Documents/ms/Fall2016/yhack/r2d2/navigator')
     # app.run(host=HOST, port=PORT, debug=True, threaded=threaded)
-    socketio.run(app, host=HOST, port=PORT)
+    socketio.run(app, host=HOST, port=PORT, debug=True)
 
   run()
