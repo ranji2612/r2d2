@@ -1,0 +1,15 @@
+{
+  "name": "r2d2",
+  "version": "0.1.0",
+  "description": "iRobot Create 2 controller and analyzer & much more",
+  "main": "server.js",
+  "author": "Devwrat, Somdeep, Siri, Ranji",
+  "dependencies": {
+    "create-oi": "0.0.6",
+    "create2": "^1.2.3",
+    "express": "~4.0.0",
+    "multer": "^1.1.0",
+    "body-parser": "^1.14.1",
+    "ssh2": "^0.4.12"
+  }
+}
