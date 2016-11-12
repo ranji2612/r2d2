@@ -101,7 +101,7 @@ def getFakeSensorData():
 def readSensors(param):
     while True:
         sensorData = bot.readSensorsData()
-        socketio.emit('broadcast', json.dumps(sensorData, indent=4, sort_keys=False))
+        socketio.emit('broadcast', sensorData)
         time.sleep(1)
 
 # TRY WITH SLASH AT END OF ROUTE
