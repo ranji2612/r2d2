@@ -8,6 +8,9 @@ html {
 .btn-primary {
     background-color: #252525;
 }
+.dark{
+  border-top: 1px solid #bbbbbb;
+}
 body {
     /* Margin bottom by footer height */
 
