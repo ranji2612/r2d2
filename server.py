@@ -24,7 +24,7 @@ import sys
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public')
 app = Flask(__name__, template_folder=tmpl_dir, static_url_path='/public')
-bot = 0
+bot = Navigator.Navigator()
 
 # DATABASEURI = "postgresql://np2544:intro2db@w4111vm.eastus.cloudapp.azure.com:5432/w4111"
 # engine = create_engine(DATABASEURI)
@@ -102,9 +102,17 @@ def basic():
 
 # TRY WITH SLASH AT END OF ROUTE
 @app.route('/api/robot/start')
-def start():
-    bot = Navigator.Navigator();
+def start1():
+    #bot = Navigator.Navigator();
     bot.startSafe();
+    #bot.reset();
+    return "Success"
+
+@app.route('/api/robot/reset')
+def reset1():
+    #bot = Navigator.Navigator();
+    #bot.startSafe();
+    bot.reset();
     return "Success"
 
 @app.route('/api/robot/stop')
@@ -113,11 +121,13 @@ def stop():
 
 @app.route('/api/robot/drive', methods=['POST'])
 def drive():
-    # bot.startSafe();
+    bot.startSafe();
     content = request.get_json(silent=False)
     x = content["x"]
     y = content["y"]
-    bot.drive(x,y);
+    bot.drive(float(x),float(y));
+    print float(x),float(y)
+    return x
     
 
     
