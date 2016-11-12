@@ -543,9 +543,12 @@ class Create2(object):
     def rotateClockwise(self, angle, rotation_velocity, unit_rotation_time, stop_velocity, straight_radius):
         timeToRotate = abs(angle * unit_rotation_time)
 
+        print 'angle = ', angle, 'type =', type(angle)
         if angle >= 0:
+            print 'clockwise'
             self.drive(rotation_velocity, -1)
         else:
+            print 'counter clockwise'
             self.drive(rotation_velocity, 1)
 
         print timeToRotate

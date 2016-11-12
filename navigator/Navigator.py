@@ -32,8 +32,23 @@ class Navigator(object):
             return
         if x == 0:
             angle = 90 if y > 0 else -90
+
         else:
             angle = math.degrees(math.atan(y/x))
+
+            if x >= 0 and y >= 0:
+                angle = angle
+
+            elif x <= 0 and y >= 0:
+                angle = 180 + angle
+
+            elif x <= 0 and y <= 0:
+                angle = 180 + angle
+
+            elif x >= 0 and y <= 0:
+                angle = 360 + angle
+
+
         velocity = math.sqrt(x**2 + y**2) * MAX_VELOCITY
 
         print 'angle = ', angle, 'velocity =', velocity
@@ -43,4 +58,9 @@ class Navigator(object):
 
         self.bot.drive_straight(velocity)
         self.velocity = velocity
+
+    def readSensorsData(self):
+        self.bot.get_packet(100)
+        #print json.dumps(self.bot.sensor_state, indent=4, sort_keys=False)
+        return self.bot.sensor_state
 
