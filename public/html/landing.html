@@ -17,6 +17,22 @@
     <h2>Sensor</h2>
     <hr class="dark"/>
   </div>
+  <dic class="sol-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Sensor</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, val) in sensorData">
+          <td>{{key}}</td>
+          <td>{{sensorData[key]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="col-xs-4">
     <speedChart></speedChart>
   </div>

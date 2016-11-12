@@ -9,6 +9,13 @@ app.controller('landingCtrl', function($scope,$http,$routeParams) {
   var joystick = nipplejs.create(options);
   var initialPosition = joystick.get(0).position;
   var lastTimeout;
+  $scope.sensorData = {
+    'Requested Velocity' : 0,
+    'Angle' : 90,
+    'Battery' : 'NA',
+    'Wall Seen' : false
+
+  };
 
   joystick.on('move end', function (evt, data) {
     // Do something.
@@ -34,6 +41,11 @@ app.controller('landingCtrl', function($scope,$http,$routeParams) {
     socket.on('broadcast', function (data) {
       console.log(data)
       // updateGraph(data);
+      $scope.sensorData['Requested Velocity'] = data['requested velocity'];
+      $scope.sensorData['Battery'] = (parseInt(data['battery charge']*100/data['battery capacity'])) + ' %';
+      $scope.sensorData['Angle'] = data['angle'];
+      $scope.sensorData['Wall Seen'] = data['wall seen'];
+      $scope.$apply();
     });
   });
   console.log(socket);
