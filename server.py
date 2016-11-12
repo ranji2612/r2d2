@@ -74,6 +74,7 @@ def handle_my_custom_event(data):
 
 @app.route('/')
 def index():
+    setup();
     return render_template("index.html");
     #return app.send_static_file('index.html')
 
@@ -100,21 +101,17 @@ def getFakeSensorData():
 def readSensors(param):
     while True:
         sensorData = bot.readSensorsData()
-        #sensorData = getFakeSensorData()
-        f = open("values.txt","a")
-        f.write(json.dumps(sensorData, indent=4, sort_keys=False))
-        #print json.dumps(sensorData, indent=4, sort_keys=False)
+        socketio.emit('broadcast', json.dumps(sensorData, indent=4, sort_keys=False))
         time.sleep(1)
 
 # TRY WITH SLASH AT END OF ROUTE
-@app.route('/api/robot/start/')
-def start1():
-    #bot = Navigator.Navigator();
+
+#@app.route('/api/robot/start/')
+
+def setup():
     bot.startSafe();
     thread = Thread(target=readSensors, args=('someParam', ))
     thread.start()
-    thread.join()
-#    #bot.reset();
     return "Success"
 
 @app.route('/api/robot/reset')
