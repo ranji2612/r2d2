@@ -79,7 +79,7 @@ def index():
 
 @app.route('/test/')
 def test():
-    socketio.emit('broadcast', {'data': 42})
+    socketio.emit('broadcast', myData)
     return "yo momma so fat"
 
 @app.route('/basic/')
@@ -101,10 +101,12 @@ def readSensors(param):
     while True:
         sensorData = bot.readSensorsData()
         #sensorData = getFakeSensorData()
-        f = open("values.txt","a")
-        f.write(json.dumps(sensorData, indent=4, sort_keys=False))
+#        f = open("values.txt","a")
+#        f.write(json.dumps(sensorData, indent=4, sort_keys=False))
+        socketio.emit('broadcast', json.dumps(sensorData, indent=4, sort_keys=False))
         #print json.dumps(sensorData, indent=4, sort_keys=False)
         time.sleep(1)
+        
 
 # TRY WITH SLASH AT END OF ROUTE
 @app.route('/api/robot/start/')
