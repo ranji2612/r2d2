@@ -13,13 +13,10 @@ Go to http://localhost:8111 in your browser.
 A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 """
-import create2api
+from create2api import Create2
 import time
 import os
-from sqlalchemy import *
-from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, session,redirect, Response
-from time import time,gmtime, strftime,mktime,localtime
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public')
 app = Flask(__name__, template_folder=tmpl_dir, static_url_path='/public')
@@ -87,11 +84,11 @@ def index():
 
 @app.route('/work/')
 def work():
-    return 'Hello!' 
+    return 'Hello!'
 
 @app.route('/basic/')
 def basic():
-    bot = create2api.Create2()
+    bot = Create2()
 
     #Start the Create2
     bot.start()
@@ -117,9 +114,9 @@ def basic():
     #Close the connection
     bot.destroy()
 
-     
 
-  
+
+
 
 
 
