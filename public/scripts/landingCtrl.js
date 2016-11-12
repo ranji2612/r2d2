@@ -27,4 +27,17 @@ app.controller('landingCtrl', function($scope,$http,$routeParams) {
       });
     }, 100);
   });
+
+  // Socket listening
+  var socket = io('http://' + document.domain + ':' + location.port + '/');
+  socket.on('connect', function () {
+    socket.on('broadcast', function (msg) {
+      console.log(msg)
+    });
+  });
+  socket.on('my response', function(msg) {
+      // $('#log').append('<p>Received: ' + msg.data + '</p>');
+      console.log(msd.data, msg);
+  });
+  console.log(socket);
 });
