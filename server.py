@@ -13,10 +13,13 @@ Go to http://localhost:8111 in your browser.
 A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 """
-from create2api import Create2
+#from create2api import Create2
 import time
 import os
 from flask import Flask, request, render_template, g, session,redirect, Response
+from navigator import Navigator
+import sys
+
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public')
 app = Flask(__name__, template_folder=tmpl_dir, static_url_path='/public')
@@ -88,44 +91,12 @@ def work():
 
 @app.route('/basic/')
 def basic():
-    bot = Create2()
-
-    #Start the Create2
-    bot.start()
-
-    #Put the Create2 into 'safe' mode so we can drive it
-    bot.safe()
-
-    #Tell the Create2 to drive straight forward at a speed of 100 mm/s
-    bot.drive_straight(100)
-
-    #Wait for 5 seconds
-    time.sleep(5)
-
-    #Tell the Create2 to drive straight backward at a speed of 100 mm/s
-    bot.drive_straight(-100)
-
-    #Wait for 5 seconds
-    time.sleep(5)
-
-    #Stop the bot
-    bot.drive_straight(0)
-
-    #Close the connection
+    bot = Navigator.Navigator()
+    bot.startSafe();
+    bot.drive(0,0);
+    time.sleep(5);
     bot.destroy()
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return 'wow'
 
 # @app.route('/another')
 # def another():
@@ -481,10 +452,12 @@ if __name__ == "__main__":
   @click.option('--threaded', is_flag=True)
   @click.argument('HOST', default='0.0.0.0')
   @click.argument('PORT', default=8111, type=int)
+
   def run(debug, threaded, host, port):
 
     HOST, PORT = host, port
     print "running on %s:%d" % (HOST, PORT)
+    sys.path.append('/Users/Siri/Documents/ms/Fall2016/yhack/r2d2/navigator')
     app.run(host=HOST, port=PORT, debug=debug, threaded=threaded)
 
 
