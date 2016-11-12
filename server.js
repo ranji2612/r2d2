@@ -2,7 +2,7 @@
 var express  = require('express');
 var app      = express(); 								// create our app w/ express
 var port  	 = 8080; 				//
-var ipaddr 	 = "127.0.0.1";
+var ipaddr 	 = '0.0.0.0';// "127.0.0.1";
 
 
 
@@ -18,7 +18,7 @@ app.use(express.static(__dirname + '/public')); 	// set the static files locatio
 
 
 //route file
-require('./app/routes/routes.js')(app);
+require('./app/routes.js')(app);
 
 
 //Start the awesomeness
