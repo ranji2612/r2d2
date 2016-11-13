@@ -51,8 +51,7 @@ app.controller('homeCtrl', function ($scope,$http,$location) {
     "Requested right velocity": 0,
     'Battery' : 'NA',
   };
-  $scope.updateDashboard = function() {
-  };
+
   $scope.trajectoryChangeFn = function(data) {
     console.log('parent');
   };
@@ -82,7 +81,6 @@ app.controller('homeCtrl', function ($scope,$http,$location) {
       $scope.sensorData['Drop left'] = data['wheel drop and bumps']['drop left'];
       $scope.sensorData['Drop right'] = data['wheel drop and bumps']['drop right'];
       $scope.$apply();
-      $scope.updateDashboard();
     });
     socket.on('trajectory', function (data) {
       $scope.trajectoryChangeFn(data);
