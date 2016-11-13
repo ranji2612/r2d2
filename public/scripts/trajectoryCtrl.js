@@ -3,7 +3,7 @@ app.controller('trajectoryCtrl', function($scope,$http,$routeParams) {
         ctx = canvas.getContext('2d'),
         line = new Line(ctx),
         img = new Image;
-  var velocityScale = 100;
+  var velocityScale = 10;
   $scope.width = 0;
   $scope.mapData = [];
   // test
@@ -57,11 +57,23 @@ app.controller('trajectoryCtrl', function($scope,$http,$routeParams) {
   .success(function(data) {
     $scope.mapData = data['result'];
     plotMap();
+    startSocket();
   })
   .error(function(err){
     console.log(err);
   });
 
+  var socket = io('http://' + document.domain + ':' + location.port + '/');
+  var startSocket = function() {
+    socket.on('connect', function () {
+      socket.on('trjectory', function (data) {
+        console.log(data)
+        $scope.mapData.push(data);
+        plotMap();
+      });
+    });
+  }
+  console.log(socket);
   var plotMap = function() {
     // Clear Graph
     ctx.drawImage(img, 0, 0, map.width, map.height);
@@ -97,7 +109,6 @@ app.controller('trajectoryCtrl', function($scope,$http,$routeParams) {
     ny = y - d * Math.sin(data[i][2] * Math.PI / 180);
     drawLine(x,y, nx, ny);
   }
-
   // init
   start();
 

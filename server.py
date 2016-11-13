@@ -72,6 +72,10 @@ def send_js(path):
 def handle_my_custom_event(data):
     emit('broadcast', data, broadcast=True)
 
+@socketio.on('trajectory')
+def handle_my_custom_event(data):
+    emit('trajectory', data, broadcast=True)
+
 @app.route('/')
 def index():
     setup();
@@ -138,15 +142,16 @@ def drive():
     y = content["y"]
     # Add to trajectory list if success
     botResp = bot.drive(float(x),float(y))
-    if (botResp != None) {
+    if botResp != None:
         trajectoryList.append(botResp)
-    }
+        socketio.emit('trajectory', botResp)
+        # socketio.emit('trajectory', botResp)
     print float(x),float(y)
     return "Success"
 
 @app.route('/api/robot/map')
 def getPath():
-    return jsonify(result=trajectoryList)  
+    return jsonify(result=trajectoryList)
 
 if __name__ == "__main__":
   import click
