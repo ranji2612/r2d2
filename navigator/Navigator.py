@@ -59,11 +59,10 @@ class Navigator(object):
 
         self.bot.drive_straight(velocity)
         self.velocity = velocity
-        timestamp = int(time.time())
+        timestamp = time.time()*1000
         return (timestamp,velocity,angle)
 
     def readSensorsData(self):
         self.bot.get_packet(100)
         #print json.dumps(self.bot.sensor_state, indent=4, sort_keys=False)
         return self.bot.sensor_state
-
