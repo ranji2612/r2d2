@@ -5,8 +5,9 @@ app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
   // Graphs for live feed
   var updateGraph = function(data) {
     // drawSpeed(data["requested velocity"]);
-    drawSpeed("leftSpeedChart", $scope.$parent.sensorData['Requested left velocity']);
-    drawSpeed("rightSpeedChart", $scope.$parent.sensorData['Requested right velocity']);
+    // drawSpeed("leftSpeedChart", $scope.$parent.sensorData['Requested left velocity']);
+    // drawSpeed("rightSpeedChart", $scope.$parent.sensorData['Requested right velocity']);
+    drawSpeed("speedChart", $scope.$parent.sensorData['Requested velocity']);
     angleDiag("angleChart", $scope.$parent.sensorData['Angle']);
     // Status Buttons
     var cliff = 'off';
