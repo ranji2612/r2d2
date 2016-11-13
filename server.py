@@ -144,7 +144,7 @@ def drive():
     botResp = bot.drive(float(x),float(y))
     if botResp != None:
         trajectoryList.append(botResp)
-        socketio.emit('trajectory', botResp)
+        socketio.emit('trajectory', {'data': botResp})
         # socketio.emit('trajectory', botResp)
     print float(x),float(y)
     return "Success"

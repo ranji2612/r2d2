@@ -27,4 +27,31 @@ app.config(function ($routeProvider, $locationProvider) {
 
 
 app.controller('homeCtrl', function ($scope,$http,$location) {
+  $scope.sensorData = {
+    'Requested Velocity' : 0,
+    'Angle' : 90,
+    'Battery' : 'NA',
+    'Wall Seen' : false
+
+  };
+  $scope.trajectoryChangeFn = function(data) {
+    console.log('parent');
+  };
+
+  // Socket listening
+  var socket = io('http://' + document.domain + ':' + location.port + '/');
+  socket.on('connect', function () {
+    socket.on('broadcast', function (data) {
+      // updateGraph(data);
+      $scope.sensorData['Requested Velocity'] = data['requested velocity'];
+      $scope.sensorData['Battery'] = (parseInt(data['battery charge']*100/data['battery capacity'])) + ' %';
+      $scope.sensorData['Angle'] = data['angle'];
+      $scope.sensorData['Wall Seen'] = data['wall seen'];
+      $scope.$apply();
+    });
+    socket.on('trajectory', function (data) {
+      $scope.trajectoryChangeFn(data);
+    });
+  });
+  console.log(socket);
 });

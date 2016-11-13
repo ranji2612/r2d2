@@ -6,6 +6,13 @@ app.controller('trajectoryCtrl', function($scope,$http,$routeParams) {
   var velocityScale = 10;
   $scope.width = 0;
   $scope.mapData = [];
+  $scope.local = function(data) {
+    console.log('child');
+    $scope.mapData.push(data['data']);
+    plotMap();
+  };
+  $scope.$parent.trajectoryChangeFn = $scope.local;
+  // $scope.$apply();
   // test
   // [Date.now() - 25000, 500, 90],
   // [Date.now() - 20000, 500, 135],
@@ -57,23 +64,12 @@ app.controller('trajectoryCtrl', function($scope,$http,$routeParams) {
   .success(function(data) {
     $scope.mapData = data['result'];
     plotMap();
-    startSocket();
+    // startSocket();
   })
   .error(function(err){
     console.log(err);
   });
 
-  var socket1 = io('http://' + document.domain + ':' + location.port + '/');
-  var startSocket = function() {
-    socket1.on('connect', function () {
-      socket1.on('trajectory', function (data) {
-        console.log(data)
-        $scope.mapData.push(data['data']);
-        plotMap();
-      });
-    });
-  }
-  console.log(socket1);
   var plotMap = function() {
     if ($scope.mapData.length == 0)
       return;
