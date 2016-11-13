@@ -63,18 +63,20 @@ app.controller('trajectoryCtrl', function($scope,$http,$routeParams) {
     console.log(err);
   });
 
-  var socket = io('http://' + document.domain + ':' + location.port + '/');
+  var socket1 = io('http://' + document.domain + ':' + location.port + '/');
   var startSocket = function() {
-    socket.on('connect', function () {
-      socket.on('trjectory', function (data) {
+    socket1.on('connect', function () {
+      socket1.on('trajectory', function (data) {
         console.log(data)
-        $scope.mapData.push(data);
+        $scope.mapData.push(data['data']);
         plotMap();
       });
     });
   }
-  console.log(socket);
+  console.log(socket1);
   var plotMap = function() {
+    if ($scope.mapData.length == 0)
+      return;
     // Clear Graph
     ctx.drawImage(img, 0, 0, map.width, map.height);
     // Draw axis

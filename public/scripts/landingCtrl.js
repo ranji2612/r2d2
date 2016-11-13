@@ -39,7 +39,6 @@ app.controller('landingCtrl', function($scope,$http,$routeParams) {
   var socket = io('http://' + document.domain + ':' + location.port + '/');
   socket.on('connect', function () {
     socket.on('broadcast', function (data) {
-      console.log(data)
       // updateGraph(data);
       $scope.sensorData['Requested Velocity'] = data['requested velocity'];
       $scope.sensorData['Battery'] = (parseInt(data['battery charge']*100/data['battery capacity'])) + ' %';
