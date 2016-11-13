@@ -1,17 +1,30 @@
 app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
   console.log('dashcrl');
   $scope.distance = '50 m';
+  
   // Graphs for live feed
   var updateGraph = function(data) {
     // drawSpeed(data["requested velocity"]);
-    drawSpeed("leftSpeedChart", 200);
-    drawSpeed("rightSpeedChart", 200);
-    drawSpeed("temp", 200);
+    drawSpeed("leftSpeedChart", $scope.$parent.sensorData['requested left velocity']);
+    drawSpeed("rightSpeedChart", $scope.$parent.sensorData['requested right velocity']);
+    drawSpeed("temp", $scope.$parent.sensorData['Angle']);
     // Status Buttons
-    statusButtons('cliffLight');
-    statusButtons('bumpLight');
-    statusButtons('wheelDropLight', 'on');
-    statusButtons('wallLight');
+    var cliff = 'off';
+    if($scope.$parent.sensorData["Cliff left"] == true || $scope.$parent.sensorData["Cliff right"] == true){
+      cliff = 'on';}
+    statusButtons('cliffLight',cliff);
+    var bump = 'off';
+    if($scope.$parent.sensorData["bump left"] == true || $scope.$parent.sensorData["bump right"] == true){
+      bump = 'on';}
+    statusButtons('bumpLight',bump);
+    var wheel = 'off';
+    if($scope.$parent.sensorData["drop left"] == true || $scope.$parent.sensorData["drop right"] == true){
+      wheel = 'on';}
+    statusButtons('wheelDropLight', wheel);
+    var wall = 'off';
+    if($scope.$parent.sensorData["wall seen"] == true){
+      wall= 'on';}
+    statusButtons('wallLight', wall);
   }
 
   var emptyContents = function(tagName) {
