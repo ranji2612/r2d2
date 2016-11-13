@@ -13,4 +13,5 @@ flask_socketio
 
 pip install the Dependencies.
 
-# Screenshots
+# Instructions to run
+python server.py
