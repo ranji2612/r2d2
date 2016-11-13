@@ -29,30 +29,30 @@ app.config(function ($routeProvider, $locationProvider) {
 app.controller('homeCtrl', function ($scope,$http,$location) {
   $scope.sensorData = {
     'Requested velocity' : 0,
-    'Angle' : 90,
+    'Angle' : 0,
     'Battery' : 'NA',
     'Wall seen' : false,
     'Distance' : 0,
-    "Cliff left": true,  
-    "Cliff front right": true,  
-    "Cliff right signal": 0,  
+    "Cliff left": true,
+    "Cliff front right": true,
+    "Cliff right signal": 0,
     "Cliff front left signal": 0,
-    "Cliff right": true, 
+    "Cliff right": true,
     "Cliff front right signal": 0,
-    "Cliff left signal": 3, 
+    "Cliff left signal": 3,
     "Cliff front left": true,
-    "Bump right": true, 
-    "Drop left": false, 
-    "Drop right": false, 
+    "Bump right": true,
+    "Drop left": false,
+    "Drop right": false,
     "Bump left": true,
     "Wall signal": 0,
-    "Requested left velocity" : 0, 
+    "Requested left velocity" : 0,
     "Requested right velocity": 0,
     "Right encoder counts": 50127,
     "Left encoder counts": 7657,
 
   };
-  
+
   $scope.trajectoryChangeFn = function(data) {
     console.log('parent');
   };

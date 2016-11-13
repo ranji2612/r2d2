@@ -1,13 +1,13 @@
 app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
   console.log('dashcrl');
   $scope.distance = '0 m';
-  
+
   // Graphs for live feed
   var updateGraph = function(data) {
     // drawSpeed(data["requested velocity"]);
     drawSpeed("leftSpeedChart", $scope.$parent.sensorData['Requested left velocity']);
     drawSpeed("rightSpeedChart", $scope.$parent.sensorData['Requested right velocity']);
-    drawSpeed("temp", $scope.$parent.sensorData['Angle']);
+    angleDiag("angleChart", $scope.$parent.sensorData['Angle']);
     // Status Buttons
     var cliff = 'off';
     if($scope.$parent.sensorData["Cliff left"] == true || $scope.$parent.sensorData["Cliff right"] == true){
@@ -69,6 +69,43 @@ app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
         .text(function(d) { return originalSpeed; });
   }
 
+  var angleDiag = function(tagName, angle) {
+    var arrow = (90 - angle - 1) * Math.PI / 180;
+    var size = (2) * Math.PI / 180;
+    var data = [
+      {start: arrow, size: size, color: "#c70909"},
+      {start: arrow + size, size: 2*Math.PI - size, color: "#ece7e7"}
+    ];
+
+    var arc = d3.arc()
+        .innerRadius(0)
+        .outerRadius(80)
+          .startAngle(function(d, i){return d.start;})
+          .endAngle(function(d, i){return d.start + d.size;})
+        ;
+    // emptyContents(tagName);
+    var chart = d3.select(tagName).append("svg:svg")
+        .attr("class", "chart")
+        .attr("width", 200)
+        .attr("height", 200).append("svg:g")
+        .attr("transform", "translate(100,100)")
+        ;
+
+    chart.selectAll("path")
+        .data(data)
+        .enter().append("svg:path")
+        .style("fill", function(d, i){
+          return d.color;
+        })
+        .attr("d", arc);
+
+    chart.append("text")
+        .attr("dy", ".35em")
+        .style("text-anchor", "middle")
+        .attr("class", "inside")
+        .text(function(d) { return angle; });
+  }
+
   var statusButtons = function(tagName, status) {
     var color = '#C7C4C4';
     if (status === 'on') {
@@ -109,5 +146,4 @@ app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
   }
 
   updateGraph();
-
 });
