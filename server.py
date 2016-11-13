@@ -107,7 +107,7 @@ def readSensors(param):
         socketio.emit('broadcast', sensorData)
         #print json.dumps(sensorData, indent=4, sort_keys=False)
         time.sleep(1)
-        
+
 
 # TRY WITH SLASH AT END OF ROUTE
 
@@ -136,7 +136,11 @@ def drive():
     content = request.get_json(silent=False)
     x = content["x"]
     y = content["y"]
-    trajectoryList.append(bot.drive(float(x),float(y)))
+    # Add to trajectory list if success
+    botResp = bot.drive(float(x),float(y))
+    if (botResp != None) {
+        trajectoryList.append(botResp)
+    }
     print float(x),float(y)
     return "Success"
 

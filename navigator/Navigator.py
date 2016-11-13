@@ -30,7 +30,7 @@ class Navigator(object):
     def drive(self, x, y):
         if x == 0 and y == 0:
             self.bot.drive_straight(0)
-            return
+            return (time.time()*1000, 0, 0)
         if x == 0:
             angle = 90 if y > 0 else -90
 
