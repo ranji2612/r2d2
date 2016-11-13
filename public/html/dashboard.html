@@ -1,6 +1,46 @@
 <br/><br/><br/>
 <div class="row">
-  <div class="col-xs-12">
-    May the force be with us
-  </div>
+
+    <div class="col-sm-3">
+    <canvas id="myCanvas" width="150" height="150"></canvas>
+    <caption>Work</caption>
+    </div>
+    <canvas id="myCanvas1" width="150" height="150"></canvas>
+    <canvas id="myCanvas2" width="150" height="150"></canvas>
+    <canvas id="myCanvas3" width="150" height="150"></canvas>
+    <canvas id="myCanvas4" width="150" height="150"></canvas>
+
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      construct(canvas,'black');
+      canvas = document.getElementById('myCanvas1');
+      construct(canvas,'black');
+      canvas = document.getElementById('myCanvas2');
+      construct(canvas,'black');
+      canvas = document.getElementById('myCanvas3');
+      construct(canvas,'black');
+      canvas = document.getElementById('myCanvas4');
+      construct(canvas,'black');
+
+      function construct(canvas,color)
+      {
+        var context = canvas.getContext('2d');
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+      var radius = 70;
+
+      context.beginPath();
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = color;
+      context.font = "20px Georgia";
+      //context.fill();
+      context.lineWidth = 5;
+      context.strokeStyle = '#003300';
+      context.fillText("Velocity", 60, 100);
+
+      context.stroke();
+      
+      }
+    </script>
+
 </div>
