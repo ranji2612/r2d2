@@ -1,6 +1,6 @@
 <html>
   <head>
-  	<title>node-angular-starterkit</title>
+  	<title>R2D2</title>
   	<meta charset="utf-8" />
   	<!--  Meta tags for sharing -->
   	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,12 +26,11 @@
                   </div>
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <ul class="nav navbar-nav">
-                          <li>
-                              <a href="/about">About</a>
-                              <!-- Calls the about page -->
-                          </li>
-                      </ul>
+                    <ul class="nav navbar-nav">
+                      <li><a href="/dashboard">Dashboard</a></li>
+                      <li><a href="/trajectory">Trajectory</a></li>
+                      <li><a href="/about">About</a></li>
+                    </ul>
                   </div>
                   <!-- /.navbar-collapse -->
               </div>
@@ -57,8 +56,6 @@
               Made&nbsp; with &nbsp;
               <span class="glyphicon glyphicon-heart"></span>
             </a>
-          <!-- &nbsp;&nbsp;<strong>&nbsp;|&nbsp;</strong>&nbsp;&nbsp;
-          <a href="https://github.com/ranji2612/node-angular-starterkit">GitHub</a> -->
   				</p>
   			</p>
   		</div>
@@ -74,7 +71,9 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <!-- Angular Scripts -->
     <script src="scripts/app.js" ></script>
+    <script src="scripts/dashboardCtrl.js" ></script>
     <script src="scripts/landingCtrl.js" ></script>
+    <script src="scripts/trajectoryCtrl.js" ></script>
     <script src="scripts/aboutCtrl.js" ></script>
     <!-- End of Scripts -->
   </body>
