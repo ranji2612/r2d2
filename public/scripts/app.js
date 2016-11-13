@@ -35,23 +35,24 @@ app.controller('homeCtrl', function ($scope,$http,$location) {
     "Wall signal": 0,
     "Right encoder counts": 0,
     "Left encoder counts": 0,
-    "Cliff left": false,  
-    "Cliff right": false, 
+    "Cliff left": false,
+    "Cliff right": false,
     "Cliff front left": false,
-    "Cliff front right": false,  
-    "Cliff left signal": 0, 
-    "Cliff right signal": 0,  
+    "Cliff front right": false,
+    "Cliff left signal": 0,
+    "Cliff right signal": 0,
     "Cliff front left signal": 0,
     "Cliff front right signal": 0,
-    "Bump right": false, 
+    "Bump right": false,
     "Bump left": false,
-    "Drop left": true, 
-    "Drop right": true, 
-    "Requested left velocity" : 0, 
+    "Drop left": true,
+    "Drop right": true,
+    "Requested left velocity" : 0,
     "Requested right velocity": 0,
     'Battery' : 'NA',
   };
-
+  $scope.updateDashboard = function() {
+  };
   $scope.trajectoryChangeFn = function(data) {
     console.log('parent');
   };
@@ -80,8 +81,8 @@ app.controller('homeCtrl', function ($scope,$http,$location) {
       $scope.sensorData['Right encoder counts'] = data['right encoder counts'];
       $scope.sensorData['Drop left'] = data['wheel drop and bumps']['drop left'];
       $scope.sensorData['Drop right'] = data['wheel drop and bumps']['drop right'];
-
       $scope.$apply();
+      $scope.updateDashboard();
     });
     socket.on('trajectory', function (data) {
       $scope.trajectoryChangeFn(data);

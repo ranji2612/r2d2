@@ -27,6 +27,13 @@ app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
     statusButtons('wallLight', wall);
   }
 
+  $scope.localUpdate = function() {
+    console.log('local update');
+    updateGraph();
+  };
+
+  $scope.$parent.updateDashboard = $scope.localUpdate();
+
   var emptyContents = function(tagName) {
       document.getElementsByTagName(tagName)[0].innerHTML = "";
   }
@@ -83,7 +90,7 @@ app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
           .startAngle(function(d, i){return d.start;})
           .endAngle(function(d, i){return d.start + d.size;})
         ;
-    // emptyContents(tagName);
+    emptyContents(tagName);
     var chart = d3.select(tagName).append("svg:svg")
         .attr("class", "chart")
         .attr("width", 200)
