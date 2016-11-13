@@ -1,12 +1,12 @@
 app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
   console.log('dashcrl');
-  $scope.distance = '50 m';
+  $scope.distance = '0 m';
   
   // Graphs for live feed
   var updateGraph = function(data) {
     // drawSpeed(data["requested velocity"]);
-    drawSpeed("leftSpeedChart", $scope.$parent.sensorData['requested left velocity']);
-    drawSpeed("rightSpeedChart", $scope.$parent.sensorData['requested right velocity']);
+    drawSpeed("leftSpeedChart", $scope.$parent.sensorData['Requested left velocity']);
+    drawSpeed("rightSpeedChart", $scope.$parent.sensorData['Requested right velocity']);
     drawSpeed("temp", $scope.$parent.sensorData['Angle']);
     // Status Buttons
     var cliff = 'off';
@@ -14,15 +14,15 @@ app.controller('dashboardCtrl', function($scope,$http,$routeParams) {
       cliff = 'on';}
     statusButtons('cliffLight',cliff);
     var bump = 'off';
-    if($scope.$parent.sensorData["bump left"] == true || $scope.$parent.sensorData["bump right"] == true){
+    if($scope.$parent.sensorData["Bump left"] == true || $scope.$parent.sensorData["bump right"] == true){
       bump = 'on';}
     statusButtons('bumpLight',bump);
     var wheel = 'off';
-    if($scope.$parent.sensorData["drop left"] == true || $scope.$parent.sensorData["drop right"] == true){
+    if($scope.$parent.sensorData["Drop left"] == true || $scope.$parent.sensorData["drop right"] == true){
       wheel = 'on';}
     statusButtons('wheelDropLight', wheel);
     var wall = 'off';
-    if($scope.$parent.sensorData["wall seen"] == true){
+    if($scope.$parent.sensorData["Wall seen"] == true){
       wall= 'on';}
     statusButtons('wallLight', wall);
   }
