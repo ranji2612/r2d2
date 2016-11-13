@@ -64,6 +64,7 @@ app.controller('homeCtrl', function ($scope,$http,$location) {
       $scope.sensorData['Requested velocity'] = data['requested velocity'];
       $scope.sensorData['Battery'] = (parseInt(data['battery charge']*100/data['battery capacity'])) + ' %';
       $scope.sensorData['Angle'] = data['angle'];
+      $scope.sensorData['Distance'] = data['distance'];
       $scope.sensorData['Wall seen'] = data['wall seen'];
       $scope.sensorData['Cliff left'] = data['cliff left'];
       $scope.sensorData['Cliff right'] = data['cliff right'];
